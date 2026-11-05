@@ -7,6 +7,16 @@ from pydantic import BaseModel, Field
 
 app = FastAPI(title="Haunted Guestbook")
 
+from fastapi.middleware.cors import CORSMiddleware
+
+# Let the frontend (served from a different origin) call this API from the browser.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 _ids = count(1)
 _entries: list[dict] = []
 
